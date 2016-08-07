@@ -1,0 +1,24 @@
+{
+  "name": "trymeanstack",
+  "description": "A first step towards creating website using MEAN Stack",
+  "main": "index.js",
+  "authors": [
+    "pooja"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/vendor",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "toastr": "^2.1.3",
+    "angular": "^1.5.8",
+    "angular-resource": "^1.5.8",
+    "angular-route": "^1.5.8"
+  }
+}
