@@ -1,14 +1,16 @@
 <html>
 <head>
+	<base href="/">
 	<title>LoginTest</title>
 	<link rel="stylesheet" href="/css/bootstrap.js">
 </head>
-<body>
-	<div>Email </br><input type='email' placeholder='username'></div> &nbsp
-	<div>Password </br><input type='password' placeholder='password'></div>&nbsp
-	<div><span><input type='submit' value='Sign In'></span>      <span><input type='submit' value='Register'></span></div>
-
-
+<body ng-app = "app">
+	<header>Header comes here</header>	
+	<ng-view></ng-view>
+	<footer>Footer comes here</footer>
 </body>
 <script type="text/javascript" src="/vendor/angular/angular.js"></script>
+<script type="text/javascript" src="/vendor/angular-resource/angular-resource.js"></script>
+<script type="text/javascript" src="/vendor/angular-route/angular-route.js"></script>
+<script type="text/javascript" src="/app/app.js"></script>
 </html>

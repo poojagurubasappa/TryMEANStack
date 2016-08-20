@@ -15,6 +15,11 @@ app.use(bodyParser.json());
 
 app.use(express.static(__dirname + '/public'));
 
+// ** for rendering partials **
+app.get('/partials/:filename', function(req,res){
+	res.sendFile(__dirname + '/server/views/partials/' + req.params.filename + '.html');
+});
+
 app.get('/', function(req,res){
 	res.sendFile(__dirname + '/server/views/main.html');
 });
