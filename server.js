@@ -1,22 +1,34 @@
 var express = require('express');
-var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
+//var bodyParser = require('body-parser');
+//var mongoose = require('mongoose');
 
 var app = express();
 
 var port = process.env.PORT || 3020;
+
+var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+
+var config = require('./server/config/config')[env];
+require('./server/config/express')(app, config);
+require('./server/config/mongoose')(config);
+require('./server/config/routes')(app);
+
+app.listen(config.port, function(req,res){
+	console.log("Application started on port : " + config.port );
 
 // ** the views and view engine are not required since we are using html **
 
 /*app.set('views', __dirname + '/server/views');
 app.set('view engine','ejs');*/
 
-app.use(bodyParser.urlencoded({extended: true}));
+
+/*app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/public'));*/
 
-mongoose.connect('mongodb://localhost/meanStackDb');
+//mongoose.connect('mongodb://localhost/meanStackDb');
+/*mongoose.connect(config.db);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, "connection error"));
 db.on('open', function callback(){
@@ -29,17 +41,16 @@ var diary;
 diaryModel.findOne().exec(function(err,res){
 	diary = res.name;
 	console.log(diary);
-});
+});*/
 
 // ** for rendering partials **
-app.get('/partials/:filename', function(req,res){
+/*app.get('/partials/:filename', function(req,res){
 	res.sendFile(__dirname + '/server/views/partials/' + req.params.filename + '.html');
 });
 
 app.get('/', function(req,res){
 	res.sendFile(__dirname + '/server/views/main.html');
-});
+});*/
 
-app.listen(port, function(req,res){
-	console.log("Application started on port : " + port );
+
 });
