@@ -15,4 +15,16 @@ module.exports = function(config){
 	diary = res.name;
 	console.log(diary);
 });
+
+	var userSchema = mongoose.Schema({firstName : String, lastName : String, Email : String});
+	var user = mongoose.model('user', userSchema);
+	var lastName;
+	user.find({}).exec(function(err,res){
+		if(res.length === 0){
+			user.create({firstName: 'Bob', lastName: 'Marley', Email: 'BobMarley@VTV.com'});
+		}
+		else {			
+			console.log(res[0].lastName);
+		}
+	});
 }

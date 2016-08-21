@@ -1,4 +1,8 @@
 var express = require('express');
+var mongoose = require('mongoose');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+
 //var bodyParser = require('body-parser');
 //var mongoose = require('mongoose');
 
@@ -12,6 +16,36 @@ var config = require('./server/config/config')[env];
 require('./server/config/express')(app, config);
 require('./server/config/mongoose')(config);
 require('./server/config/routes')(app);
+
+var user = mongoose.model('user');
+passport.use(new LocalStrategy(function(username,password,done){
+	user.findOne({username: username}).exec(function(err,user){	
+		if(user){
+			done(null, user);
+		}
+		else {
+			done(null,false);
+		}
+	})
+}
+));
+
+passport.serializeUser(function(user, done){
+	if(user){
+		done(null,user._id);
+	}
+});
+
+passport.deserializeUser(function(id,done){
+	user.findOne({_id:id}).exec(function(err,user){
+		if(user){
+			done(null,user);
+		}
+		else {
+			done(null,false);
+		}
+	})
+});
 
 app.listen(config.port, function(req,res){
 	console.log("Application started on port : " + config.port );
